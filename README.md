@@ -1,4 +1,4 @@
-## LLaVA-NPU: Run LLaVA on a NPU device, e.g., Ascend 910B
+## LLaVA-NPU: Running LLaVA on a NPU device, e.g., Ascend 910B
 
 In this project, we transfer the LLaVA from the CUDA device to the NPU device. If you think our project helpful, give our project a star. Thanks for your support!
 
