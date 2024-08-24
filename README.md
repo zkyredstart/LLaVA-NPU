@@ -3,7 +3,7 @@
 In this project, we transfer the LLaVA from the CUDA device to the NPU device. If you think our project helpful, give our project a star. Thanks for your support!
 
 ### Change history
-[2024-08-125]: We reproduce the results on the MMBench. Weights will be uploaded soon.
+[2024-08-25]: We reproduce the results on the MMBench. Weights are coming soon.
 
 [2024-08-15]: We create the project and update the source code.
 
