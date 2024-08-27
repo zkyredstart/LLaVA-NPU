@@ -18,11 +18,14 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 <2> **Important**: LLaVA-NPU does not support lora tuing and zero3-offload. Please use the full tuning. We train LLaVA on 8 Ascend 910B NPUs with 65GB memory.
 
 <3> Training details. The hyper-parameters used in the pertraining and visual instruction tuning are as followed.
+
+1. Pretraining
+
 | Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | LLaVA-v1.5-7B | 256 | 1e-3 | 1 | 2048 | 0 |
 
-2. Finetuning
+2. visual instruction tuning
 
 | Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay |
 | --- | ---: | ---: | ---: | ---: | ---: |
