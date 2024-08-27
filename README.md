@@ -16,6 +16,7 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 <1> You can train and test LLaVA as those in the official repo! If you are in china, you can download the model from modelscope.
 
 <2> **Important**: LLaVA-NPU does not support lora tuing and zero3-offload. Please use the full tuning. We train LLaVA on 8 Ascend 910B NPUs with 65GB memory.
+
 <3> Training details. The hyper-parameters used in the pertraining and visual instruction tuning are as followed.
 | Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay |
 | --- | ---: | ---: | ---: | ---: | ---: |
