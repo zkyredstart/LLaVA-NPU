@@ -26,10 +26,11 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 | LLaVA-v1.5-7B | 64 | 1e-5 | 1 | 2048 | 0 |
 
 <4> Model Performance comparison. 
-| Model | MMBench |
-| --- | ---: |
-| LLaVA-v1.5-7B (official) | 64.5 |
-| LLaVA-v1.5-7B (ours) | 67.7 |
+| Model | Image encoder | MMBench |
+| --- |--- | ---: |
+| LLaVA-v1.5-7B (official) | CLIP | 64.5 |
+| LLaVA-v1.5-7B (ours) | CLIP | 67.7 |
+| LLaVA-v1.5-7B (ours) | SigLip | 66.4 |
 
 ### Core code
 <1> LLaVA-NPU changes the flash_atten implementation. The code can be found in [here](llava/train/llama_npu_monkey_patch.py).
