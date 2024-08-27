@@ -696,6 +696,9 @@ class LazySupervisedDataset(Dataset):
         assert len(sources) == 1, "Don't know why it is wrapped to a list"  # FIXME
         if 'image' in sources[0]:
             image_file = self.list_data_dict[i]['image']
+            image_file = image_file.replace('vg/', 'vg/vg/')
+            image_file = image_file.replace('ocr_vqa/', 'ocr_vqa/ocr_vqa/')
+            image_file = image_file.replace('textvqa/', 'TextVQA/')
             image_folder = self.data_args.image_folder
             processor = self.data_args.image_processor
             image = Image.open(os.path.join(image_folder, image_file)).convert('RGB')
@@ -734,7 +737,10 @@ class LazySupervisedDataset(Dataset):
             data_dict['image'] = image
         elif self.data_args.is_multimodal:
             # image does not exist in the data, but the model is multimodal
-            crop_size = self.data_args.image_processor.crop_size
+            if hasattr(self.data_args.image_processor,'crop_size'):
+                crop_size = self.data_args.image_processor.crop_size
+            else:
+                crop_size = self.data_args.image_processor.size
             data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
         return data_dict
 
