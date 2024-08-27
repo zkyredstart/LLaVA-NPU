@@ -28,7 +28,9 @@ class SiglipVisionTower(nn.Module):
         self.image_processor = SiglipImageProcessor.from_pretrained(self.vision_tower_name)
         if device_map == 'auto':
             device_map=None
-        self.vision_tower = SiglipVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map).to("npu")
+            self.vision_tower = SiglipVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map).to("npu") # for inference
+        else:
+            self.vision_tower = SiglipVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
         self.vision_tower.requires_grad_(False)
 
         self.is_loaded = True
