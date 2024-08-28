@@ -69,6 +69,7 @@ class LlavaMetaModel:
                 vision_tower = self.vision_tower
             vision_tower.load_model()
 
+        self.config.vision_embed_dim = vision_tower.vision_tower.vision_model.embeddings.embed_dim # for clip, other vision model can delete this line.
         self.config.use_mm_proj = True
         self.config.mm_projector_type = getattr(model_args, 'mm_projector_type', 'linear')
         self.config.mm_hidden_size = vision_tower.hidden_size
