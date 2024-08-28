@@ -10,7 +10,7 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 [2024-08-15]: We create the project and update the source code.
 
 ### Installation
-<1> Install the LLaVA. ```pip install -e .```
+<1> Install the LLaVA. ```pip install -e .["train"]```
 
 ### Train and Test
 <1> You can train and test LLaVA as those in the official repo! If you are in china, you can download the model from modelscope.
