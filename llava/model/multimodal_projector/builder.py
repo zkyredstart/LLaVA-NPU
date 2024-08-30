@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import re
+from .ldp import LDPNetV2Projector
 
 
 class IdentityMap(nn.Module):
@@ -33,9 +34,16 @@ class SimpleResBlock(nn.Module):
 def build_vision_projector(config, delay_load=False, **kwargs):
     projector_type = getattr(config, 'mm_projector_type', 'linear')
 
+    if 'resampler' in projector_type:
+        embed_dim = config.hidden_size
+        return Resampler(12,embed_dim,embed_dim//128,kv_dim=config.vision_embed_dim)
+    
     if projector_type == 'linear':
         return nn.Linear(config.mm_hidden_size, config.hidden_size)
 
+    if projector_type == 'ldp':
+        return LDPNetV2Projector(config)
+    
     mlp_gelu_match = re.match(r'^mlp(\d+)x_gelu$', projector_type)
     if mlp_gelu_match:
         mlp_depth = int(mlp_gelu_match.group(1))
