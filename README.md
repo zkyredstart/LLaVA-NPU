@@ -43,6 +43,59 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 
 <2> We modify the evaluation code in LLaVA. The code is [here](llava/eval).
 
+<3> We support nn.MultiHeadAttention on the NPU device.
+
+```
+import torch
+import torch.nn as nn
+import torch_npu
+import math
+
+class MultiheadfusionAttention(nn.Module):
+    """
+    MultiHeadAttention Implementation on the NPU device
+    """
+    def __init__(self, d_model, h):
+        super().__init__()
+        assert d_model % h == 0
+
+        # We assume d_v always equals d_k
+        self.d_k = d_model // h
+        self.h = h
+
+        self.linear_layers = nn.ModuleList([nn.Linear(d_model, d_model) for _ in range(3)])
+        self.output_linear = nn.Linear(d_model, d_model) 
+    
+    def forward(self,query,key,value,attn_mask=None,dropout=1.):
+        # import pdb;pdb.set_trace()
+        batch_size = query.size(0)
+        ns = key.size(0)
+
+        # 1) Do all the linear projections in batch from d_model => h x d_k
+        query, key, value = [l(x) for l, x in zip(self.linear_layers, (query, key, value))]   
+
+        scale = 1 / math.sqrt(self.d_k)     
+
+        attn_output = torch_npu.npu_fusion_attention(query, key, value,
+                                                     self.h,
+                                                     pse=None,
+                                                     padding_mask=None,
+                                                     atten_mask=attn_mask,
+                                                     scale=scale,
+                                                     keep_prob=dropout,
+                                                     input_layout="SBH",
+                                                     pre_tockens=65536,
+                                                     next_tockens=0,
+                                                     inner_precise=0)
+
+        return attn_output
+
+# Usage
+inputs = torch.rand(1,2304,1024)
+Attention = MultiheadfusionAttention(1024,8)
+outputs = Attention(inputs)[0]
+```
+
 ### Acknowledgement
 <1> We would like to express the sincere thanks to [this repo](https://github.com/HelloWorldBeginner/LLaVA/tree/main) for its implementation on the NPU. Our project is based on it!
 
