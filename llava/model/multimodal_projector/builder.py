@@ -1,7 +1,9 @@
 import torch
 import torch.nn as nn
 import re
+from .resampler import Resampler
 from .ldp import LDPNetV2Projector
+from .abstract import CAbstractor
 
 
 class IdentityMap(nn.Module):
@@ -34,6 +36,18 @@ class SimpleResBlock(nn.Module):
 def build_vision_projector(config, delay_load=False, **kwargs):
     projector_type = getattr(config, 'mm_projector_type', 'linear')
 
+    if 'abs' in projector_type:
+        config.encoder_hidden_size = config.hidden_size // 4
+        config.num_eos_tokens = 0
+        config.output_hidden_size = 4096
+        config.prenorm = False
+        config.pos_emb = True
+        config.depth = 3
+        config.mlp_depth = 2
+        config.num_query_tokens = 144
+        config.initializer_range = 0.02
+        return CAbstractor(config=config,num_input_tokens=config.num_input_tokens)
+    
     if 'resampler' in projector_type:
         embed_dim = config.hidden_size
         return Resampler(12,embed_dim,embed_dim//128,kv_dim=config.vision_embed_dim)
