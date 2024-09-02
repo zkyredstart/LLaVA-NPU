@@ -3,6 +3,8 @@
 In this project, we transfer the LLaVA from the CUDA device to the NPU device. If you think our project helpful, give our project a star. Thanks for your support!
 
 ### Change history
+[2024-09-02]: We support the common visual projectors, e.g. LDPv2, Resampler. Try it!
+
 [2024-08-27]: We add SigLip encoder to the LLaVA-NPU.
 
 [2024-08-25]: We reproduce the results on the MMBench. Weights are coming soon.
