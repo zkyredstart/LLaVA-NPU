@@ -4,6 +4,7 @@ import re
 from .resampler import Resampler
 from .ldp import LDPNetV2Projector
 from .abstract import CAbstractor
+from .tokenpacker import TokenPacker
 
 
 class IdentityMap(nn.Module):
@@ -57,6 +58,9 @@ def build_vision_projector(config, delay_load=False, **kwargs):
 
     if projector_type == 'ldp':
         return LDPNetV2Projector(config)
+
+    if projector_type == 'tokenpacker':
+        return TokenPacker(hidden_size=config.hidden_size, scale_factor=config.scale_factor)
     
     mlp_gelu_match = re.match(r'^mlp(\d+)x_gelu$', projector_type)
     if mlp_gelu_match:
