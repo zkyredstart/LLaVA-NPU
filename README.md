@@ -36,9 +36,9 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 <4> Model Performance comparison. 
 | Model | Image encoder | Language Model | Projector | MMBench |
 | --- |--- | --- | --- |---: |
-| LLaVA-v1.5-7B (official) | CLIP | Vicuna-7B | MLP |64.5 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | MLP |64.5 |
-| LLaVA-v1.5-7B (ours) | SigLip | Vicuna-7B | MLP |64.5 |
+| LLaVA-v1.5-7B (official) | CLIP | Vicuna-7B | MLP |66.7 |
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | MLP |67.7 |
+| LLaVA-v1.5-7B (ours) | SigLip | Vicuna-7B | MLP |66.4 |
 | LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | Adaptive Pool |64.6 |
 | LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | Resampler |63.1 |
 | LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | LDPv2 |65.7 |
