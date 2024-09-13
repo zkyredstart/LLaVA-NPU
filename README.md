@@ -34,16 +34,16 @@ In this project, we transfer the LLaVA from the CUDA device to the NPU device. I
 | LLaVA-v1.5-7B | 64 | 1e-5 | 1 | 2048 | 0 |
 
 <4> Model Performance comparison. 
-| Model | Image encoder | Language Model | Projector | MMBench |
-| --- |--- | --- | --- |---: |
-| LLaVA-v1.5-7B (official) | CLIP | Vicuna-7B | MLP |66.7 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | MLP |67.7 |
-| LLaVA-v1.5-7B (ours) | SigLip | Vicuna-7B | MLP |66.4 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | Adaptive Pool |64.6 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | Resampler |63.1 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | LDPv2 |65.7 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | TokenPacker |63.1 |
-| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | C-Abstract |65.1 |
+| Model | Image encoder | Language Model | Projector | MMBench | MMVet |
+| --- |--- | --- | --- |---: |---: |
+| LLaVA-v1.5-7B (official) | CLIP | Vicuna-7B | MLP |66.7 |31.1
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | MLP |67.7 | 32.2
+| LLaVA-v1.5-7B (ours) | SigLip | Vicuna-7B | MLP |66.4 | -
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | Adaptive Pool |64.6 |-
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | Resampler |63.1 | 27.1
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | LDPv2 |65.7 | 28.9
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | TokenPacker |63.1 | -
+| LLaVA-v1.5-7B (ours) | CLIP | Vicuna-7B | C-Abstract |65.1 | 31.8
 
 ### Core code
 <1> LLaVA-NPU changes the flash_atten implementation. The code can be found in [here](llava/train/llama_npu_monkey_patch.py).
